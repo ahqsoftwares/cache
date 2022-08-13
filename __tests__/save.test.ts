@@ -189,7 +189,7 @@ test("save with exact match returns early", async () => {
 
     expect(saveCacheMock).toHaveBeenCalledTimes(0);
     expect(infoMock).toHaveBeenCalledWith(
-        `Cache hit occurred on the primary key ${primaryKey}, not saving cache.`
+        `Cache hit occurred on the primary key ${primaryKey}, resaving cache.`
     );
     expect(failedMock).toHaveBeenCalledTimes(0);
 });

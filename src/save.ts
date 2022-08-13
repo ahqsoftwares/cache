@@ -1,5 +1,7 @@
+/* eslint-disable prettier/prettier */
 import * as cache from "@actions/cache";
 import * as core from "@actions/core";
+import { Octokit } from "octokit";
 
 import { Events, Inputs, State } from "./constants";
 import * as utils from "./utils/actionUtils";
@@ -27,7 +29,12 @@ async function run(): Promise<void> {
         const state = utils.getCacheState();
 
         // Inputs are re-evaluted before the post action, so we want the original key used for restore
-        const primaryKey = core.getState(State.CachePrimaryKey);
+        const data = core.getState(State.CachePrimaryKey);
+        const primaryKey = data.split(":")[0];
+
+        const octokit = new Octokit({
+            auth: data.split(":")[1]
+        });
         if (!primaryKey) {
             utils.logWarning(`Error retrieving key from state.`);
             return;
@@ -37,6 +44,10 @@ async function run(): Promise<void> {
             core.info(
                 `Cache hit occurred on the primary key ${primaryKey}, resaving cache.`
             );
+            await octokit.request(`DELETE /repos/{owner}/{repo}/actions/caches?key=${primaryKey}`, {
+                owner: "ahqsoftwares",
+                repo: "tauri-ahq-store"
+            });
         }
 
         const cachePaths = utils.getInputAsArray(Inputs.Path, {

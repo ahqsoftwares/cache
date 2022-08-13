@@ -22,7 +22,8 @@ async function run(): Promise<void> {
         }
 
         const primaryKey = core.getInput(Inputs.Key, { required: true });
-        core.saveState(State.CachePrimaryKey, primaryKey);
+        const octokitToken = core.getInput(Inputs.Token, { required: true });
+        core.saveState(State.CachePrimaryKey, `${primaryKey}:${octokitToken}`);
 
         const restoreKeys = utils.getInputAsArray(Inputs.RestoreKeys);
         const cachePaths = utils.getInputAsArray(Inputs.Path, {
