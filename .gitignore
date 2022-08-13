@@ -5,6 +5,7 @@ lib/
 
 # Rest pulled from https://github.com/github/gitignore/blob/master/Node.gitignore
 # Logs
+/yarn.lock
 logs
 *.log
 npm-debug.log*

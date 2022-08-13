@@ -35,9 +35,8 @@ async function run(): Promise<void> {
 
         if (utils.isExactKeyMatch(primaryKey, state)) {
             core.info(
-                `Cache hit occurred on the primary key ${primaryKey}, not saving cache.`
+                `Cache hit occurred on the primary key ${primaryKey}, resaving cache.`
             );
-            return;
         }
 
         const cachePaths = utils.getInputAsArray(Inputs.Path, {
