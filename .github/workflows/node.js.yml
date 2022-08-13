@@ -20,7 +20,7 @@ jobs:
       uses: actions/setup-node@v3
       with:
         node-version: 16.x
-        cache: 'yarn'
-    - run: yarn
-    - run: yarn run build --if-present
-    - run: yarn test
+        cache: 'npm'
+    - run: npm i --force
+    - run: npm run-script build --if-present
+    - run: npm test
