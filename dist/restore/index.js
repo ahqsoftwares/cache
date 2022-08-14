@@ -60357,6 +60357,7 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
     });
 };
 Object.defineProperty(exports, "__esModule", ({ value: true }));
+/* eslint-disable prettier/prettier */
 const cache = __importStar(__nccwpck_require__(5006));
 const core = __importStar(__nccwpck_require__(5004));
 const constants_1 = __nccwpck_require__(5395);
@@ -60374,7 +60375,7 @@ function run() {
                 return;
             }
             const primaryKey = core.getInput(constants_1.Inputs.Key, { required: true });
-            const octokitToken = core.getInput(constants_1.Inputs.Token, { required: true });
+            const octokitToken = process.env.TOKEN ? process.env.TOKEN : core.setFailed("process.env.TOKEN is a must");
             core.saveState(constants_1.State.CachePrimaryKey, `${primaryKey}:${octokitToken}`);
             const restoreKeys = utils.getInputAsArray(constants_1.Inputs.RestoreKeys);
             const cachePaths = utils.getInputAsArray(constants_1.Inputs.Path, {

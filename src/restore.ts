@@ -1,3 +1,4 @@
+/* eslint-disable prettier/prettier */
 import * as cache from "@actions/cache";
 import * as core from "@actions/core";
 
@@ -22,7 +23,7 @@ async function run(): Promise<void> {
         }
 
         const primaryKey = core.getInput(Inputs.Key, { required: true });
-        const octokitToken = core.getInput(Inputs.Token, { required: true });
+        const octokitToken = process.env.TOKEN ? process.env.TOKEN : core.setFailed("process.env.TOKEN is a must");
         core.saveState(State.CachePrimaryKey, `${primaryKey}:${octokitToken}`);
 
         const restoreKeys = utils.getInputAsArray(Inputs.RestoreKeys);
